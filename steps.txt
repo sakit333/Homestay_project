@@ -1,0 +1,5 @@
+Step 1: Set Up Your Environment Install Python and Flask:
+pip install Flask
+pip install Flask-MySQL
+pip install flask-mysqldb
+
