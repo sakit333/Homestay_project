@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<h2>Booking</h2>
+<form method="POST">
+    <label for="room_id">Room ID:</label>
+    <input type="text" id="room_id" name="room_id" required>
+    <br>
+    <label for="start_date">Start Date:</label>
+    <input type="date" id="start_date" name="start_date" required>
+    <br>
+    <label for="end_date">End Date:</label>
+    <input type="date" id="end_date" name="end_date" required>
+    <br>
+    <button type="submit">Book</button>
+</form>
+{% endblock %}
