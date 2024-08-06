@@ -5,46 +5,50 @@ from werkzeug.security import generate_password_hash, check_password_hash
 
 app = Flask(__name__)
 app.config.from_object(Config)
-app.secret_key = 'your_secret_key'
+#app.secret_key = 'your_secret_key'
+app.secret_key = 'a1b2c3d4e5f6g7h8i9j0k1l2m3n4o5p6q7r8s9t0u1v2w3x4y5z6a7b8c9d0e1f2'
+
 
 # Initialize MySQL
 mysql = MySQL(app)
 
 def create_tables():
-    try:
-        cur = mysql.connection.cursor()
-        cur.execute("""
-            CREATE TABLE IF NOT EXISTS users (
-                id INT AUTO_INCREMENT PRIMARY KEY,
-                username VARCHAR(50) NOT NULL,
-                password VARCHAR(100) NOT NULL,
-                is_admin BOOLEAN DEFAULT FALSE
-            )
-        """)
-        cur.execute("""
-            CREATE TABLE IF NOT EXISTS rooms (
-                id INT AUTO_INCREMENT PRIMARY KEY,
-                room_number INT NOT NULL,
-                type VARCHAR(50),
-                availability BOOLEAN DEFAULT TRUE,
-                price DECIMAL(10, 2)
-            )
-        """)
-        cur.execute("""
-            CREATE TABLE IF NOT EXISTS bookings (
-                id INT AUTO_INCREMENT PRIMARY KEY,
-                user_id INT,
-                room_id INT,
-                start_date DATE,
-                end_date DATE,
-                FOREIGN KEY (user_id) REFERENCES users(id),
-                FOREIGN KEY (room_id) REFERENCES rooms(id)
-            )
-        """)
-        mysql.connection.commit()
-        cur.close()
-    except Exception as e:
-        print(f"An error occurred: {e}")
+    with app.app_context():
+        try:
+            cur = mysql.connection.cursor()
+            cur.execute("""
+                CREATE TABLE IF NOT EXISTS users (
+                    id INT AUTO_INCREMENT PRIMARY KEY,
+                    username VARCHAR(50) NOT NULL,
+                    password VARCHAR(100) NOT NULL,
+                    is_admin BOOLEAN DEFAULT FALSE
+                )
+            """)
+            cur.execute("""
+                CREATE TABLE IF NOT EXISTS rooms (
+                    id INT AUTO_INCREMENT PRIMARY KEY,
+                    room_number INT NOT NULL,
+                    type VARCHAR(50),
+                    availability BOOLEAN DEFAULT TRUE,
+                    price DECIMAL(10, 2)
+                )
+            """)
+            cur.execute("""
+                CREATE TABLE IF NOT EXISTS bookings (
+                    id INT AUTO_INCREMENT PRIMARY KEY,
+                    user_id INT,
+                    room_id INT,
+                    start_date DATE,
+                    end_date DATE,
+                    FOREIGN KEY (user_id) REFERENCES users(id),
+                    FOREIGN KEY (room_id) REFERENCES rooms(id)
+                )
+            """)
+            mysql.connection.commit()
+            cur.close()
+            print("Tables created successfully.")
+        except Exception as e:
+            print(f"An error occurred: {e}")
 
 # Create tables
 create_tables()
