@@ -51,7 +51,25 @@ create_tables()
 
 @app.route('/')
 def welcome():
-    return render_template('welcome.html')
+    return render_template('base.html')
+
+@app.route('/signup', methods=['GET', 'POST'])
+def signup():
+    if request.method == 'POST':
+        username = request.form['username']
+        password = request.form['password']
+        hashed_password = generate_password_hash(password)
+        
+        try:
+            cur = mysql.connection.cursor()
+            cur.execute("INSERT INTO users (username, password) VALUES (%s, %s)", (username, hashed_password))
+            mysql.connection.commit()
+            cur.close()
+            return redirect(url_for('user_login'))
+        except Exception as e:
+            return f"An error occurred: {e}"
+    
+    return render_template('signup.html')
 
 @app.route('/home')
 def home():
