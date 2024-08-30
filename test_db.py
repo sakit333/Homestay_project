@@ -2,7 +2,8 @@ import MySQLdb
 
 try:
     conn = MySQLdb.connect(
-        host='34.230.88.43',
+        host='localhost',  # Correct host without port
+        port=3306,          # Specify port separately
         user='root',
         passwd='1234',
         db='homestay_db'
