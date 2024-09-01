@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Profile</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            margin: 0;
+            padding: 20px;
+            background-color: #f4f4f4;
+        }
+        h1 {
+            color: #333;
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        .profile-info {
+            background-color: #fff;
+            border-radius: 5px;
+            padding: 20px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            max-width: 600px;
+            margin: 0 auto;
+        }
+        .profile-info p {
+            margin-bottom: 10px;
+        }
+        .profile-info strong {
+            color: #555;
+        }
+        nav {
+            margin-top: 30px;
+            text-align: center;
+        }
+        nav ul {
+            list-style-type: none;
+            padding: 0;
+        }
+        nav ul li {
+            display: inline;
+            margin: 0 10px;
+        }
+        nav ul li a {
+            text-decoration: none;
+            color: #007bff;
+            font-weight: bold;
+            transition: color 0.3s ease;
+        }
+        nav ul li a:hover {
+            color: #0056b3;
+        }
+    </style>
+</head>
+<body>
+    <h1>Welcome, {{ user.username }}</h1>
+    <div class="profile-info">
+        <p><strong>User ID:</strong> {{ user.userid }}</p>
+        <p><strong>Mobile Number:</strong> {{ user.mobilenumber }}</p>
+        <p><strong>Email ID:</strong> {{ user.emailid }}</p>
+    </div>
+
+    <nav>
+        <ul>
+            <li><a href="/profile">User Details</a></li>
+            <li><a href="/logout">Logout</a></li>
+        </ul>
+    </nav>
+</body>
+</html>
